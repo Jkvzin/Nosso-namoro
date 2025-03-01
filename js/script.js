@@ -11,7 +11,12 @@ function atualizarContador() {
     const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
     const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
 
-    document.getElementById('contador').innerHTML = `${anos} anos, ${meses} meses, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos`;
+    document.getElementById('anos').innerHTML = `${anos} anos`;
+    document.getElementById('meses').innerHTML = `${meses} meses`;
+    document.getElementById('dias').innerHTML = `${dias} dias`;
+    document.getElementById('horas').innerHTML = `${horas} horas`;
+    document.getElementById('minutos').innerHTML = `${minutos} minutos`;
+    document.getElementById('segundos').innerHTML = `${segundos} segundos`;
 }
 
 setInterval(atualizarContador, 1000);
