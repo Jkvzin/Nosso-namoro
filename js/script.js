@@ -1,19 +1,35 @@
 const dataInicio = new Date('2025-02-07T12:00:00');
 
+function calcularDiferenca(dataInicio, dataFim) {
+    let anos = dataFim.getFullYear() - dataInicio.getFullYear();
+    let meses = dataFim.getMonth() - dataInicio.getMonth();
+    let dias = dataFim.getDate() - dataInicio.getDate();
+
+    if (dias < 0) {
+        const ultimoDiaMesAnterior = new Date(dataFim.getFullYear(), dataFim.getMonth(), 0).getDate();
+        dias += ultimoDiaMesAnterior;
+        meses--;
+    }
+
+    if (meses < 0) {
+        meses += 12;
+        anos--;
+    }
+
+    return { anos, meses, dias };
+}
+
 function atualizarContador() {
     const agora = new Date();
-    const diferenca = agora - dataInicio;
+    const diferenca = calcularDiferenca(dataInicio, agora);
 
-    const anos = Math.floor(diferenca / (1000 * 60 * 60 * 24 * 365));
-    const meses = Math.floor((diferenca % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
-    const dias = Math.floor((diferenca % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
-    const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+    const horas = agora.getHours();
+    const minutos = agora.getMinutes();
+    const segundos = agora.getSeconds();
 
-    document.getElementById('anos').innerHTML = `${anos} anos`;
-    document.getElementById('meses').innerHTML = `${meses} meses`;
-    document.getElementById('dias').innerHTML = `${dias} dias`;
+    document.getElementById('anos').innerHTML = `${diferenca.anos} anos`;
+    document.getElementById('meses').innerHTML = `${diferenca.meses} meses`;
+    document.getElementById('dias').innerHTML = `${diferenca.dias} dias`;
     document.getElementById('horas').innerHTML = `${horas} horas`;
     document.getElementById('minutos').innerHTML = `${minutos} minutos`;
     document.getElementById('segundos').innerHTML = `${segundos} segundos`;
